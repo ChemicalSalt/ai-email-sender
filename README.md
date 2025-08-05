@@ -3,7 +3,7 @@
 A full-stack web app that uses **Groq AI (LLaMA 3)** to generate professional emails and sends them via **Gmail** — all from a simple UI.
 
 ## Live Demo
-[View AI Email Sender](https://email-sender-ai.netlify.app/)
+[View AI Email Sender](https://ai-email-sender.netlify.app/)
 
 ## Features  
 - Uses **Groq (LLaMA 3)** via `@ai-sdk/groq` to generate emails  
