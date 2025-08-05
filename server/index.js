@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const { groq } = require('@ai-sdk/groq');
 const { generateText } = require('ai');
 const nodemailer = require('nodemailer');
@@ -9,9 +8,6 @@ const nodemailer = require('nodemailer');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// Serve frontend static files from the public folder (adjust path if needed)
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Groq AI generate email endpoint
 app.post('/api/generate-email', async (req, res) => {
@@ -55,11 +51,6 @@ app.post('/api/send-email', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Email sending failed' });
   }
-});
-
-// SPA fallback for frontend routes (if using React or SPA)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;

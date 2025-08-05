@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,7 @@
       status.innerText = 'Generating email...';
 
       try {
-        const res = await fetch('/api/generate-email', {
+        const res = await fetch('http://localhost:5000/api/generate-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt })
@@ -73,7 +74,7 @@
       status.innerText = 'Sending email...';
 
       try {
-        const res = await fetch('/api/send-email', {
+        const res = await fetch('http://localhost:5000/api/send-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
