@@ -20,8 +20,8 @@ A full-stack web app that uses **Groq AI (LLaMA 3)** to generate professional em
 
 ## Setup (Local)  
 1. Clone the repo  
-   git clone https://github.com/your-username/email-sender-ai.git  
-   cd email-sender-ai/server
+   git clone https://github.com/your-username/ai-email-sender.git  
+   cd ai-email-sender/server
 
 2. Install dependencies  
    npm install
@@ -34,7 +34,7 @@ A full-stack web app that uses **Groq AI (LLaMA 3)** to generate professional em
 5. Open `client/index.html` locally or deploy it to Netlify.
 
 ## Deployment  
-- **Frontend (Netlify):** https://email-sender-ai.netlify.app/
+- **Frontend (Netlify):** https://ai-email-sender.netlify.app/
 - **Backend (Render):** https://email-sender-ai.onrender.com/
 
 ## How It Works  
