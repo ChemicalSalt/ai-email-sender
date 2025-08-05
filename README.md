@@ -15,7 +15,7 @@ A full-stack web app that uses **Groq AI (LLaMA 3)** to generate professional em
 | Frontend     | Backend           | AI                | Deployment               |  
 |--------------|-------------------|--------------------|---------------------------|  
 | HTML, JS     | Node.js, Express  | Groq (LLaMA 3)     | Netlify (frontend)       |  
-| Inline CSS   | Nodemailer, dotenv| `@ai-sdk/groq`     | Render (backend API)     |
+| CSS   | Nodemailer, dotenv| `@ai-sdk/groq`     | Render (backend API)     |
 
 
 ## Setup (Local)  
