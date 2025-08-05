@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Email Sender</title>
+</head>
+<body>
+  <h1>AI Email Sender</h1>
+  
+  <label>Recipient(s) (comma separated):</label><br>
+  <input type="text" id="to" placeholder="email@example.com" style="width: 400px;"><br><br>
+  
+  <label>Prompt for AI:</label><br>
+  <textarea id="prompt" rows="4" cols="50" placeholder="Write a professional email about..."></textarea><br><br>
+  
+  <button id="generateBtn">Generate Email</button><br><br>
+  
+  <label>Generated Email (editable):</label><br>
+  <textarea id="emailBody" rows="10" cols="70"></textarea><br><br>
+  
+  <label>Subject:</label><br>
+  <input type="text" id="subject" placeholder="Subject of the email" style="width: 400px;"><br><br>
+  
+  <button id="sendBtn">Send Email</button>
+  
+  <p id="status"></p>
+
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const status = document.getElementById('status');
+
+    generateBtn.onclick = async () => {
+      const prompt = document.getElementById('prompt').value;
+      if (!prompt.trim()) {
+        status.innerText = 'Please enter a prompt.';
+        return;
+      }
+      status.innerText = 'Generating email...';
+
+      try {
+        const res = await fetch('http://localhost:5000/api/generate-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+        const data = await res.json();
+        if (data.email) {
+          document.getElementById('emailBody').value = data.email;
+          status.innerText = 'Email generated! You can edit it if you want.';
+        } else {
+          status.innerText = 'Failed to generate email.';
+        }
+      } catch (e) {
+        status.innerText = 'Error: ' + e.message;
+      }
+    };
+
+    sendBtn.onclick = async () => {
+      const to = document.getElementById('to').value;
+      const subject = document.getElementById('subject').value;
+      const emailBody = document.getElementById('emailBody').value;
+
+      if (!to.trim()) {
+        status.innerText = 'Please enter recipient email(s).';
+        return;
+      }
+      if (!emailBody.trim()) {
+        status.innerText = 'Email body is empty.';
+        return;
+      }
+      status.innerText = 'Sending email...';
+
+      try {
+        const res = await fetch('http://localhost:5000/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipients: to.split(',').map(email => email.trim()),
+            emailContent: emailBody,
+            subject
+          })
+        });
+        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+        const data = await res.json();
+        status.innerText = data.message || (data.error ? data.error : 'Failed to send email.');
+      } catch (e) {
+        status.innerText = 'Error: ' + e.message;
+      }
+    };
+  </script>
+</body>
+</html>
